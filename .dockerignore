@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/__pycache__
+**/*.pyc
+**/.venv
+**/venv
+.git
+.idea
+.vscode
+*.md
+!README.md
+.env
+.env.*
+data/
+*.session
+*.db
+*.zip

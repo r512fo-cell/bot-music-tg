@@ -1,0 +1,242 @@
+:root {
+  color-scheme: dark;
+  --bg: #09090b;
+  --bg-elev: #121216;
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.08);
+  --surface-3: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.07);
+  --text: #f4f4f6;
+  --text-2: rgba(244, 244, 246, 0.64);
+  --text-3: rgba(244, 244, 246, 0.4);
+  --accent: #8b7bff;
+  --accent-2: #ff6fb1;
+  --accent-mid: #c174ff;
+  --accent-light: #c9bfff;
+  --accent-rgb: 139 123 255;
+  --accent-mid-rgb: 193 116 255;
+  --accent-2-rgb: 255 111 177;
+  --accent-grad: linear-gradient(135deg, var(--accent) 0%, var(--accent-mid) 50%, var(--accent-2) 100%);
+  --glow-1: rgba(139, 123, 255, 0.22);
+  --glow-2: rgba(255, 111, 177, 0.13);
+  --on-accent: #fff;
+  --danger: #ff5c6c;
+  --success: #3ddc97;
+  --glass: rgba(18, 18, 22, 0.6);
+  --glass-strong: rgba(14, 14, 18, 0.78);
+  --blur: blur(22px) saturate(170%);
+  --radius-lg: 24px;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --gutter: 16px;
+
+  --safe-top: calc(var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
+  --safe-bottom: max(env(safe-area-inset-bottom, 0px), var(--tg-safe-area-inset-bottom, 0px));
+  --tabbar-h: 62px;
+  --mini-h: 64px;
+  --ambient: 139, 123, 255;
+
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+  overscroll-behavior-y: none;
+}
+
+body {
+  /* фон рисует html; прозрачный body не перекрывает общий слой свечения (.app-bg) */
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input, textarea { -webkit-user-select: text; user-select: text; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+
+/* ---------- utilities ---------- */
+.ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.muted { color: var(--text-2); }
+.faint { color: var(--text-3); }
+.tnum { font-variant-numeric: tabular-nums; }
+
+.glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+}
+
+/* Горизонтальную обрезку делаем на контейнере приложения, а не на html/body:
+   overflow-x на body превращает его в отдельный скролл-контейнер и ломает прокрутку в WebView iOS */
+.app { overflow-x: clip; }
+html.scroll-locked { overflow: hidden; }
+
+.page {
+  position: relative;
+  padding: calc(var(--safe-top) + 12px) var(--gutter) calc(var(--tabbar-h) + var(--mini-h) + var(--safe-bottom) + 28px);
+  min-height: 100vh;
+}
+
+.section { margin-top: 28px; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.section-title { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+.section-link { font-size: 14px; color: var(--accent); font-weight: 600; }
+
+.page-title { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; margin: 8px 0 18px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s, transform 0.15s var(--ease);
+}
+.chip:active { transform: scale(0.96); }
+.chip.active { background: var(--text); color: var(--bg); border-color: transparent; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  background: var(--surface-2);
+  transition: transform 0.15s var(--ease), opacity 0.2s, background 0.2s;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; pointer-events: none; }
+.btn-primary { background: var(--accent-grad); color: var(--on-accent); box-shadow: 0 8px 24px -8px rgb(var(--accent-mid-rgb) / 0.6); }
+.btn-ghost { background: transparent; border: 1px solid var(--border); }
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text);
+  transition: transform 0.15s var(--ease), background 0.2s, color 0.2s;
+}
+.icon-btn:active { transform: scale(0.88); background: var(--surface-2); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.h-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--gutter);
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.h-scroll::-webkit-scrollbar { display: none; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 40%, var(--surface) 80%);
+  background-size: 300% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-2);
+}
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--text-3);
+}
+
+/* ---------- общий фон приложения (один на все экраны — не мигает при переходах) ---------- */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 45% at 8% -6%, rgb(var(--accent-rgb) / 0.22), transparent 70%),
+    radial-gradient(55% 38% at 100% 0%, rgb(var(--accent-2-rgb) / 0.13), transparent 70%),
+    var(--bg);
+  transform: translateZ(0);
+}
+
+/* ---------- route transitions: уходящий экран исчезает мгновенно, новый — мягко появляется ---------- */
+.route-enter-active { transition: opacity 0.22s var(--ease), transform 0.26s var(--ease); }
+.route-leave-active { transition: none; }
+.route-enter-from { opacity: 0; transform: translateY(6px); }
+.route-leave-to { opacity: 0; }
+
+.fade-enter-active, .fade-leave-active { transition: opacity 0.25s var(--ease); }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,99 @@
+/* ================================================================
+   Сезонные темы. Меняют только переменные акцента/свечения и добавляют
+   лёгкий декор — раскладка и стиль приложения остаются прежними.
+   ================================================================ */
+
+/* ---------- 🍂 Осень: тёплый янтарь и медь ---------- */
+:root[data-season="autumn"] {
+  --accent: #ffa149;
+  --accent-mid: #ff7a3d;
+  --accent-2: #e5533d;
+  --accent-light: #ffd2a6;
+  --accent-rgb: 255 161 73;
+  --accent-mid-rgb: 255 122 61;
+  --accent-2-rgb: 229 83 61;
+  --glow-1: rgba(255, 138, 52, 0.26);
+  --glow-2: rgba(214, 84, 36, 0.17);
+  --on-accent: #1d0d03;
+}
+
+/* ---------- ❄️ Зима: холодный лёд и иней ---------- */
+:root[data-season="winter"] {
+  --bg: #07090e;
+  --accent: #6cc9ff;
+  --accent-mid: #8aa9ff;
+  --accent-2: #c3e9ff;
+  --accent-light: #d4efff;
+  --accent-rgb: 108 201 255;
+  --accent-mid-rgb: 138 169 255;
+  --accent-2-rgb: 195 233 255;
+  --glow-1: rgba(108, 190, 255, 0.24);
+  --glow-2: rgba(190, 220, 255, 0.14);
+  --on-accent: #04121d;
+}
+
+/* ---------- 🌸 Весна: свежая зелень и цветение ---------- */
+:root[data-season="spring"] {
+  --accent: #74de95;
+  --accent-mid: #b5e27a;
+  --accent-2: #ff9cc6;
+  --accent-light: #d2f7dc;
+  --accent-rgb: 116 222 149;
+  --accent-mid-rgb: 181 226 122;
+  --accent-2-rgb: 255 156 198;
+  --glow-1: rgba(116, 222, 149, 0.2);
+  --glow-2: rgba(255, 156, 198, 0.15);
+  --on-accent: #071a0d;
+}
+
+/* ---------- ☀️ Лето: солнце и море ---------- */
+:root[data-season="summer"] {
+  --accent: #ffc940;
+  --accent-mid: #ff9f3f;
+  --accent-2: #2fd3c5;
+  --accent-light: #ffe8a8;
+  --accent-rgb: 255 201 64;
+  --accent-mid-rgb: 255 159 63;
+  --accent-2-rgb: 47 211 197;
+  --glow-1: rgba(255, 196, 60, 0.24);
+  --glow-2: rgba(47, 211, 197, 0.13);
+  --on-accent: #1d1302;
+}
+
+/* плавная смена темы без мерцания */
+.app-bg { transition: background 0.6s ease; }
+
+/* ---------- зима: немного снега на заголовках ---------- */
+:root[data-season="winter"] .block-title,
+:root[data-season="winter"] .page-title {
+  position: relative;
+  display: inline-block;
+}
+:root[data-season="winter"] .block-title::after,
+:root[data-season="winter"] .page-title::after {
+  content: '';
+  position: absolute;
+  left: 2%;
+  right: 6%;
+  top: 0.06em;
+  height: 0.32em;
+  pointer-events: none;
+  /* «шапка» снега из мягких бугорков, неровная по ширине */
+  background:
+    radial-gradient(0.34em 0.2em at 8% 75%, #fff 60%, transparent 62%),
+    radial-gradient(0.5em 0.22em at 27% 80%, #f2f9ff 60%, transparent 62%),
+    radial-gradient(0.3em 0.18em at 46% 78%, #fff 60%, transparent 62%),
+    radial-gradient(0.46em 0.2em at 66% 80%, #eef7ff 60%, transparent 62%),
+    radial-gradient(0.28em 0.17em at 86% 78%, #fff 60%, transparent 62%);
+  opacity: 0.78;
+  filter: drop-shadow(0 1px 1px rgba(120, 180, 255, 0.35));
+}
+
+/* ---------- плеер: сезонная подсветка кнопки воспроизведения ---------- */
+:root[data-season] .player .play {
+  box-shadow: 0 0 0 6px rgb(var(--accent-rgb) / 0.16), 0 14px 34px -10px rgb(var(--accent-mid-rgb) / 0.55);
+}
+:root[data-season="winter"] .player .play { background: linear-gradient(160deg, #ffffff, #e4f3ff); }
+:root[data-season="autumn"] .player .play { background: linear-gradient(160deg, #fffaf4, #ffe6cf); }
+:root[data-season="spring"] .player .play { background: linear-gradient(160deg, #ffffff, #e9fbe9); }
+:root[data-season="summer"] .player .play { background: linear-gradient(160deg, #fffdf2, #fff0c4); }
